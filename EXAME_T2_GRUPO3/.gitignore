@@ -1,0 +1,14 @@
+# Executáveis gerados por compilação (Como visto na image_2afda3.png)
+compilador.exe
+*.exe
+*.out
+*.o
+*.obj
+
+# Arquivos de teste locais
+codigo_sem_erro.txt
+codigo_com_erro.txt
+
+# Configurações do VS Code ou IDEs (opcional, mas recomendado)
+.vscode/
+.DS_Store
