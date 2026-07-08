@@ -1,0 +1,6 @@
+# Ignorar o executável gerado
+*.exe
+compilador.exe
+
+# Opcional: Se quiser tirar os PDFs do GitHub, adicione estas linhas:
+*.pdf
