@@ -1,38 +1,38 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "compiler.h"
 
 int main(void)
 {
-    // Correção/Melhoria: Garante que o estado comece zerado e limpo
+    // Garante que o estado comece zerado e limpo
     CompilerState state = {0, 0, 0};
     int opcao;
 
     do
     {
         printf("\n");
-        printf("=========================================\n");
-        printf("        COMPILADOR INTELIGENTE\n");
-        printf("=========================================\n");
-        printf("1 - Carregar ficheiro automaticamente\n");
-        printf("2 - Inserir codigo manualmente\n");
-        printf("3 - Analise Lexica\n");
-        printf("4 - Analise Sintatica\n");
-        printf("5 - Executar AST\n");
-        printf("6 - Mostrar Tabela de Simbolos\n");
-        printf("7 - Mostrar Hash Table\n");
-        printf("8 - Mostrar BST\n");
-        printf("9 - Mostrar AVL\n");
-        printf("10 - Compilar Tudo\n");
-        printf("0 - Sair\n");
-        printf("=========================================\n");
+        printf("===========================================\n");
+        printf("+       COMPILADOR INTELIGENTE            +\n");
+        printf("===========================================\n");
+        printf("1 - Inserir codigo manualmente            +\n");
+        printf("2 - Analise Lexica                        +\n");
+        printf("3 - Analise Sintatica                     +\n");
+        printf("4 - Executar AST                          +\n");
+        printf("5 - Mostrar Tabela de Simbolos            +\n");
+        printf("6 - Mostrar Hash Table                    +\n");
+        printf("7 - Mostrar BST                           +\n");
+        printf("8 - Mostrar AVL                           +\n");
+        printf("9 - Compilar Tudo                        +\n");
+        printf("0 - Sair                                  +\n");
+        printf("===========================================\n");
         printf("Opcao: ");
 
-        // Proteção contra entrada inválida (ex: se digitarem uma letra, não quebra o menu)
+        // Protecao contra entrada invalida
         if (scanf("%d", &opcao) != 1)
         {
             printf("\nErro: Entrada invalida! Digite apenas numeros.\n");
             while (getchar() != '\n')
-                ; // Limpa o buffer do teclado
+                ;
             opcao = -1;
             continue;
         }
@@ -40,42 +40,43 @@ int main(void)
         switch (opcao)
         {
         case 1:
-            loadSourceAutomatic(&state);
-            break;
-
-        case 2:
             loadSourceManual(&state);
             break;
 
-        case 3:
+        case 2:
             lexicalAnalysis();
             break;
 
-        case 4:
+        case 3:
             syntaxAnalysis();
             break;
 
-        case 5:
+        case 4:
             executeCode(&state);
             break;
 
-        case 6:
+        case 5:
+            limparTela();
             printSymbolTable();
             break;
 
-        case 7:
+        case 6:
+            limparTela();
             printHashTable();
             break;
 
+        case 7:
+            limparTela();
+            printBSTMenu(); // funcao wrapper que gerencia a raiz global
+            break;
+
         case 8:
-            printBSTMenu(); // Alterado para a função wrapper que gerencia a raiz global
+            limparTela();
+            printAVLMenu(); // funcao wrapper que gerencia a raiz global
             break;
 
         case 9:
-            printAVLMenu(); // Alterado para a função wrapper que gerencia a raiz global
-            break;
-
-        case 10:
+            limparTela();
             compileCode(&state);
             break;
 

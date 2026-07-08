@@ -4,10 +4,6 @@
 #define HASH_SIZE 101
 #define MAX_LEXEME_SIZE 64
 
-/*==========================
- Estruturas de Controle e Símbolos
-==========================*/
-
 typedef struct
 {
     int loaded;
@@ -36,112 +32,81 @@ typedef struct
     int column;
 } Token;
 
-// Correção: Estrutura Symbol adicionada aqui!
 typedef struct
 {
     char name[32];
     char type[16];
 } Symbol;
 
-/*==========================
- Nós das Estruturas de Dados
-==========================*/
-
 typedef struct ASTNode
 {
     char value[32];
-    struct ASTNode *left;
-    struct ASTNode *right;
+    struct ASTNode *left, *right;
 } ASTNode;
-
 typedef struct HashNode
 {
-    char name[32];
-    char type[16];
+    char name[32], type[16];
     struct HashNode *next;
 } HashNode;
-
 typedef struct BSTNode
 {
-    char name[32];
-    char type[16];
-    struct BSTNode *left;
-    struct BSTNode *right;
+    char name[32], type[16];
+    struct BSTNode *left, *right;
 } BSTNode;
-
 typedef struct AVLNode
 {
-    char name[32];
-    char type[16];
+    char name[32], type[16];
     int height;
-    struct AVLNode *left;
-    struct AVLNode *right;
+    struct AVLNode *left, *right;
 } AVLNode;
 
-/*==========================
- Variáveis Globais (Declarações)
-==========================*/
-
+// Globais compartilhadas
 extern ASTNode *astRoot;
 extern BSTNode *bstRoot;
 extern AVLNode *avlRoot;
 extern HashNode *hashTable[HASH_SIZE];
 
-/*==========================
- Funções do Sistema e Menu
-==========================*/
-
+// Funcoes de controle
 void loadSourceAutomatic(CompilerState *state);
 void loadSourceManual(CompilerState *state);
 void compileCode(CompilerState *state);
 void executeCode(CompilerState *state);
-
-/*==========================
- Funções de Análise (Ponte / Wrappers)
-==========================*/
-
 void lexicalAnalysis(void);
 void syntaxAnalysis(void);
 void printBSTMenu(void);
 void printAVLMenu(void);
 
-/*==========================
- Lógica Interna: Lexer & Parser
-==========================*/
-
+// Lexer e parser
 void initLexer(const char *code);
 Token getNextToken(void);
+void advance(void);
 void initParser(void);
 void parseProgram(void);
 void parseStatement(void);
 ASTNode *parseExpressionAST(void);
+
+// AST
 ASTNode *createNode(const char *value);
+void printAST(ASTNode *node, int level);
+int evaluateAST(ASTNode *node);
 
-/*==========================
- Lógica Interna: Tabelas e Árvores
-==========================*/
-
-// Hash
+// Hash/BST/AVL
 void initHashTable(void);
-unsigned int hashFunction(char *name);
-void insertHash(char *name, char *type);
+void insertHash(const char *name, const char *type);
 void printHashTable(void);
-
-// BST
 void initBST(void);
 BSTNode *insertBST(BSTNode *root, char *name, char *type);
 void printBST(BSTNode *root);
-
-// AVL
 void initAVL(void);
 AVLNode *insertAVL(AVLNode *node, char *name, char *type);
 void printAVL(AVLNode *root);
 
-// Símbolos Básica e TAC
+// Simbolos e TAC
 void initSymbolTable(void);
 void addSymbol(const char *name, const char *type);
 void printSymbolTable(void);
 char *generateTAC(ASTNode *node);
 void printTAC(void);
+void limparTela(void);
 
-#endif /* COMPILER_H */
+#endif
